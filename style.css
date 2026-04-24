@@ -20,19 +20,14 @@ body {
     background: url('images/Frame\ 2\ \(1\).png');
     background-size: cover;
     background-position: center;
-
+    padding-top: 70px;
 }
 
 .container {
     padding: 10px 10%;
 }
 
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
+/* nav layout handled by the fixed glassmorphism block below */
 
 .logo {
     width: 140px;
@@ -821,6 +816,47 @@ nav .fas {
     display: none;
 }
 
+/* Hamburger menu for tablets + phones (≤768px) */
+@media only screen and (max-width: 768px) {
+    nav .fas {
+        display: block;
+        font-size: 25px;
+        cursor: pointer;
+    }
+
+    nav ul {
+        background: rgba(8, 8, 8, 0.96);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid rgba(112, 38, 112, 0.35);
+        position: fixed;
+        top: 0;
+        right: -240px;
+        width: 240px;
+        height: 100vh;
+        padding-top: 60px;
+        z-index: 200;
+        transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    nav ul li {
+        display: block;
+        margin: 25px 30px;
+    }
+
+    nav ul li a {
+        font-size: 16px;
+    }
+
+    nav ul .fas {
+        position: absolute;
+        top: 22px;
+        left: 22px;
+        cursor: pointer;
+        color: #e3b2ff;
+    }
+}
+
 /* phones (and small devices) */
 @media only screen and (max-width: 600px) {
 
@@ -848,36 +884,6 @@ nav .fas {
 
     .header-text .sub-role {
         font-size: 14px;
-    }
-
-    /* Mobile nav */
-    nav .fas {
-        display: block;
-        font-size: 25px;
-    }
-
-    nav ul {
-        background: #702670;
-        position: fixed;
-        top: 0;
-        right: -200px;
-        width: 200px;
-        height: 100vh;
-        padding-top: 50px;
-        z-index: 2;
-        transition: right 0.5s;
-    }
-
-    nav ul li {
-        display: block;
-        margin: 25px;
-    }
-
-    nav ul .fas {
-        position: absolute;
-        top: 25px;
-        left: 25px;
-        cursor: pointer;
     }
 
     /* Section titles */
@@ -998,14 +1004,22 @@ nav .fas {
     #hero-3d { display: none; }
 }
 
-/* Glassmorphism navigation */
+/* Glassmorphism navigation — fixed sticky header */
 nav {
-    background: rgba(8, 8, 8, 0.45);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(112, 38, 112, 0.2);
-    border-radius: 0 0 20px 20px;
-    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(8, 8, 8, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(112, 38, 112, 0.25);
+    border-radius: 0;
+    padding: 14px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Gradient section headings */
@@ -1276,4 +1290,5 @@ form textarea:focus {
     .contact-left,
     .contact-right { padding: 1.5rem 1.2rem; }
     .services-list div::after { font-size: 2.5rem; }
+    nav { padding: 12px 6%; }
 }

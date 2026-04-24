@@ -666,8 +666,12 @@
         }
 
         function closemenu() {
-            sidemenu.style.right = "-200px";
+            sidemenu.style.right = "-240px";
         }
+
+        sidemenu.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', closemenu);
+        });
     </script>
     <script>
         const scriptURL = 'https://script.google.com/macros/s/AKfycbw_D3yyyCXT89NPRpshf_zTsjw5UofQM4fhf6Z6DhSUJ6w7Kaa7qODTBxGHhfWMrBkh9g/exec'
