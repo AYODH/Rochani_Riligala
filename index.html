@@ -703,70 +703,105 @@
         var canvas = document.getElementById('hero-3d');
         if (!canvas) return;
 
+        var isMobile = window.innerWidth <= 600;
+
         function getSize() {
             return { w: canvas.offsetWidth || window.innerWidth, h: canvas.offsetHeight || window.innerHeight };
         }
-        var isMobile = window.innerWidth <= 600;
-        var sz = getSize();
-        var w = sz.w, h = sz.h;
+        var sz = getSize(), w = sz.w, h = sz.h;
         var scene = new THREE.Scene();
-        var fov = isMobile ? 75 : 55;
-        var camera = new THREE.PerspectiveCamera(fov, w / h, 0.1, 100);
-        camera.position.z = isMobile ? 6.5 : 5.5;
+        var camera = new THREE.PerspectiveCamera(isMobile ? 60 : 55, w / h, 0.1, 100);
+        camera.position.z = isMobile ? 4.0 : 5.5;
 
         var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
         renderer.setSize(w, h);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        /* ── Outer wireframe icosahedron ── */
-        var icoGeo = new THREE.IcosahedronGeometry(1.4, 1);
-        var icoMat = new THREE.MeshBasicMaterial({ color: 0xa040c0, wireframe: true, transparent: true, opacity: 0.75 });
-        var ico = new THREE.Mesh(icoGeo, icoMat);
-        scene.add(ico);
+        /* ── scene objects (declared at scope so tick() can access) ── */
+        var ico, core, rGroup, r1, r2, r3, pts;
 
-        /* ── Inner dark core ── */
-        var coreGeo = new THREE.IcosahedronGeometry(1.0, 0);
-        var coreMat = new THREE.MeshBasicMaterial({ color: 0x1a001a, transparent: true, opacity: 0.55 });
-        var core = new THREE.Mesh(coreGeo, coreMat);
-        scene.add(core);
-
-        /* ── Three orbiting rings ── */
-        function makeRing(r, tube, tiltX, tiltZ, color, opacity) {
-            var geo = new THREE.TorusGeometry(r, tube, 8, 120);
+        function makeRing(r, tube, segs, tiltX, tiltZ, color, opacity) {
+            var geo = new THREE.TorusGeometry(r, tube, 8, segs);
             var mat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: opacity });
             var mesh = new THREE.Mesh(geo, mat);
             mesh.rotation.x = tiltX;
             mesh.rotation.z = tiltZ;
             return mesh;
         }
-        var rGroup = new THREE.Group();
-        var r1 = makeRing(2.3, 0.018, Math.PI * 0.25, 0,            0xe3b2ff, 0.70);
-        var r2 = makeRing(1.9, 0.014, Math.PI * 0.55, Math.PI*0.2,  0xb060e0, 0.60);
-        var r3 = makeRing(2.7, 0.010, Math.PI * 0.08, Math.PI*0.5,  0x702670, 0.50);
-        rGroup.add(r1, r2, r3);
-        scene.add(rGroup);
 
-        /* ── Particle constellation (sphere shell) ── */
-        var pCount = 300;
-        var pPos = new Float32Array(pCount * 3);
-        for (var i = 0; i < pCount; i++) {
-            var theta = Math.random() * Math.PI * 2;
-            var phi   = Math.acos(2 * Math.random() - 1);
-            var rad   = 2.9 + Math.random() * 1.5;
-            pPos[i*3]   = rad * Math.sin(phi) * Math.cos(theta);
-            pPos[i*3+1] = rad * Math.sin(phi) * Math.sin(theta);
-            pPos[i*3+2] = rad * Math.cos(phi);
-        }
-        var pGeo = new THREE.BufferGeometry();
-        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-        var pMat = new THREE.PointsMaterial({ color: 0xecc8ff, size: 0.055, transparent: true, opacity: 0.85 });
-        var pts  = new THREE.Points(pGeo, pMat);
-        scene.add(pts);
-
-        /* ── Mobile: shift scene to upper-left, away from face ── */
         if (isMobile) {
-            scene.position.set(-0.9, 1.4, 0);
-            scene.scale.setScalar(0.72);
+            /* ── MOBILE: compact floating crystal ── */
+            /* Diamond octahedron wireframe */
+            ico = new THREE.Mesh(
+                new THREE.OctahedronGeometry(0.7, 1),
+                new THREE.MeshBasicMaterial({ color: 0xb050d0, wireframe: true, transparent: true, opacity: 0.9 })
+            );
+            scene.add(ico);
+
+            core = new THREE.Mesh(
+                new THREE.OctahedronGeometry(0.42, 0),
+                new THREE.MeshBasicMaterial({ color: 0x0d000d, transparent: true, opacity: 0.7 })
+            );
+            scene.add(core);
+
+            /* Two tight orbital rings */
+            rGroup = new THREE.Group();
+            r1 = makeRing(1.15, 0.020, 80, Math.PI * 0.30, 0,           0xe3b2ff, 0.80);
+            r2 = makeRing(0.90, 0.015, 80, Math.PI * 0.65, Math.PI*0.3, 0xb060e0, 0.65);
+            rGroup.add(r1, r2);
+            scene.add(rGroup);
+
+            /* Compact particle cloud */
+            var pCount = 100;
+            var pPos = new Float32Array(pCount * 3);
+            for (var i = 0; i < pCount; i++) {
+                var theta = Math.random() * Math.PI * 2;
+                var phi   = Math.acos(2 * Math.random() - 1);
+                var rad   = 1.4 + Math.random() * 0.7;
+                pPos[i*3]   = rad * Math.sin(phi) * Math.cos(theta);
+                pPos[i*3+1] = rad * Math.sin(phi) * Math.sin(theta);
+                pPos[i*3+2] = rad * Math.cos(phi);
+            }
+            var pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            pts = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xecc8ff, size: 0.07, transparent: true, opacity: 0.95 }));
+            scene.add(pts);
+
+        } else {
+            /* ── DESKTOP: full icosahedron + 3 large rings ── */
+            ico = new THREE.Mesh(
+                new THREE.IcosahedronGeometry(1.4, 1),
+                new THREE.MeshBasicMaterial({ color: 0xa040c0, wireframe: true, transparent: true, opacity: 0.75 })
+            );
+            scene.add(ico);
+
+            core = new THREE.Mesh(
+                new THREE.IcosahedronGeometry(1.0, 0),
+                new THREE.MeshBasicMaterial({ color: 0x1a001a, transparent: true, opacity: 0.55 })
+            );
+            scene.add(core);
+
+            rGroup = new THREE.Group();
+            r1 = makeRing(2.3, 0.018, 120, Math.PI * 0.25, 0,           0xe3b2ff, 0.70);
+            r2 = makeRing(1.9, 0.014, 120, Math.PI * 0.55, Math.PI*0.2, 0xb060e0, 0.60);
+            r3 = makeRing(2.7, 0.010, 120, Math.PI * 0.08, Math.PI*0.5, 0x702670, 0.50);
+            rGroup.add(r1, r2, r3);
+            scene.add(rGroup);
+
+            var pCount = 300;
+            var pPos = new Float32Array(pCount * 3);
+            for (var i = 0; i < pCount; i++) {
+                var theta = Math.random() * Math.PI * 2;
+                var phi   = Math.acos(2 * Math.random() - 1);
+                var rad   = 2.9 + Math.random() * 1.5;
+                pPos[i*3]   = rad * Math.sin(phi) * Math.cos(theta);
+                pPos[i*3+1] = rad * Math.sin(phi) * Math.sin(theta);
+                pPos[i*3+2] = rad * Math.cos(phi);
+            }
+            var pGeo = new THREE.BufferGeometry();
+            pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+            pts = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xecc8ff, size: 0.055, transparent: true, opacity: 0.85 }));
+            scene.add(pts);
         }
 
         /* ── Mouse / touch parallax ── */
@@ -777,17 +812,13 @@
         });
         document.addEventListener('touchmove', function (e) {
             if (e.touches.length > 0) {
-                mx = (e.touches[0].clientX / window.innerWidth  - 0.5) * 0.25;
-                my = (e.touches[0].clientY / window.innerHeight - 0.5) * 0.25;
+                mx = (e.touches[0].clientX / window.innerWidth  - 0.5) * 0.15;
+                my = (e.touches[0].clientY / window.innerHeight - 0.5) * 0.15;
             }
         }, { passive: true });
 
         window.addEventListener('resize', function () {
-            var s = getSize();
-            w = s.w; h = s.h;
-            isMobile = w <= 600;
-            camera.fov = isMobile ? 75 : 55;
-            camera.position.z = isMobile ? 6.5 : 5.5;
+            var s = getSize(); w = s.w; h = s.h;
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
             renderer.setSize(w, h);
@@ -799,21 +830,19 @@
             requestAnimationFrame(tick);
             t += 0.008;
 
-            var pulse = 1 + Math.sin(t * 1.6) * 0.04;
-            ico.scale.setScalar(pulse);
-
+            ico.scale.setScalar(1 + Math.sin(t * 1.6) * 0.04);
             ico.rotation.x  =  t * 0.35;
             ico.rotation.y  =  t * 0.55;
             core.rotation.x = -t * 0.20;
             core.rotation.y =  t * 0.30;
 
-            rGroup.rotation.y =  t * 0.18;
-            r1.rotation.z     =  t * 0.22;
+            rGroup.rotation.y = t * 0.18;
+            r1.rotation.z     = t * 0.22;
             r2.rotation.z     = -t * 0.16;
-            r3.rotation.z     =  t * 0.09;
+            if (r3) r3.rotation.z = t * 0.09;
 
-            pts.rotation.y =  t * 0.04;
-            pts.rotation.x =  t * 0.02;
+            pts.rotation.y = t * 0.04;
+            pts.rotation.x = t * 0.02;
 
             rx += (my - rx) * 0.05;
             ry += (mx - ry) * 0.05;
