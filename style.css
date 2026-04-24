@@ -1011,7 +1011,8 @@ nav .fas {
         height: 100%;
         top: 0;
         left: 0;
-        opacity: 0.45;
+        mix-blend-mode: screen;
+        opacity: 0.85;
     }
 }
 
