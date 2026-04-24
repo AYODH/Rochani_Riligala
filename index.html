@@ -763,6 +763,12 @@
         var pts  = new THREE.Points(pGeo, pMat);
         scene.add(pts);
 
+        /* ── Mobile: shift scene to upper-left, away from face ── */
+        if (isMobile) {
+            scene.position.set(-0.9, 1.4, 0);
+            scene.scale.setScalar(0.72);
+        }
+
         /* ── Mouse / touch parallax ── */
         var mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', function (e) {
@@ -771,8 +777,8 @@
         });
         document.addEventListener('touchmove', function (e) {
             if (e.touches.length > 0) {
-                mx = (e.touches[0].clientX / window.innerWidth  - 0.5) * 0.5;
-                my = (e.touches[0].clientY / window.innerHeight - 0.5) * 0.5;
+                mx = (e.touches[0].clientX / window.innerWidth  - 0.5) * 0.25;
+                my = (e.touches[0].clientY / window.innerHeight - 0.5) * 0.25;
             }
         }, { passive: true });
 
