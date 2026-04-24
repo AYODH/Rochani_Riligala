@@ -356,8 +356,26 @@ nav ul li a:hover::after {
 }
 
 .cert-group.open .cert-list {
-    max-height: 400px;
-    /* large enough for your list */
+    max-height: 340px;
+    overflow-y: auto;
+}
+
+/* Scrollbar styling for cert list */
+.cert-list::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cert-list::-webkit-scrollbar-track {
+    background: #101010;
+}
+
+.cert-list::-webkit-scrollbar-thumb {
+    background: #702670;
+    border-radius: 2px;
+}
+
+.cert-list::-webkit-scrollbar-thumb:hover {
+    background: #9a3a9a;
 }
 
 .cert-group.open .cert-toggle {
