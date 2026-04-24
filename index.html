@@ -662,11 +662,11 @@
         var sidemenu = document.getElementById("sidemenu");
 
         function openmenu() {
-            sidemenu.style.right = "0";
+            sidemenu.classList.add("nav-open");
         }
 
         function closemenu() {
-            sidemenu.style.right = "-240px";
+            sidemenu.classList.remove("nav-open");
         }
 
         sidemenu.querySelectorAll('a').forEach(function(link) {
