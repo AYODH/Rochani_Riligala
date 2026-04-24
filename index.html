@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rochani_Riligala</title>
     <link rel="shortcut icon" href="images/Logo.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
@@ -16,6 +19,7 @@
 
 <body>
     <div id="header">
+        <canvas id="hero-3d" aria-hidden="true"></canvas>
         <div class="container">
             <nav>
                 <img src="images/Frame 1.png" class="logo">
@@ -31,8 +35,8 @@
             </nav>
             <div class="header-text">
                 <h1>Hi, I'm <span>Rochani Riligala </span><br> From Sri Lanka</h1>
-                <p class="role">Integration Consultant - Intern</p>
-                <p class="sub-role">(Softwear Engineering Undergraduate)</p>
+                <p class="role"><span id="typed-role"></span><span class="typed-cursor"></span></p>
+                <p class="sub-role">(Software Engineering Undergraduate at UOW)</p>
             </div>
         </div>
     </div>
@@ -45,12 +49,11 @@
                 </div>
                 <div class="about-col-2">
                     <h1 class="sub-title">About Me</h1>
-                    <p>I am an Integration Consultant Intern at Yenlo and a BEng (Hons) Software Engineering
-                        undergraduate with hands-on experience in API development, system integration, and cloud-based
-                        middleware. My work with platforms like Boomi and WSO2 has strengthened my skills in building
-                        scalable, reliable integrations and solving complex technical challenges. Backed by a strong
-                        foundation in coding and system design, I’m passionate about delivering high-quality solutions
-                        and contributing to efficient, user-focused digital systems.</p>
+                    <p>I am a Managed Services Engineer and Boomi Integration Consultant, and a BEng (Hons) Software
+                        Engineering undergraduate. I specialise in building and maintaining Boomi integrations,
+                        managing enterprise middleware, and resolving complex production challenges. Currently expanding
+                        my expertise into WSO2 API Manager, WSO2 IAM, Kubernetes, Elastic Stack, and AWS to deepen my
+                        cloud and platform engineering capabilities.</p>
                     <div class="tab-titles">
                         <p class="tab-links active-link" onclick="opentab('experience')">Experience</p>
                         <p class="tab-links" onclick="opentab('education')">Education</p>
@@ -60,15 +63,18 @@
 
                     <div class="tab-contents active-tab" id="experience">
                         <ul>
-                            <li><span>2025-Current</span><br> Integration Consultant Intern at Yenlo</li>
+                            <li><span>2026 Apr - Current</span><br>Managed Services Engineer</li>
+                            <li><span>2025 Oct - 2026 Apr</span><br>Managed Services Engineer Intern at Yenlo</li>
+                            <li><span>2025 Apr - 2025 Sep</span><br>Integration Consultant Intern at Yenlo</li>
                         </ul>
                     </div>
 
                     <div class="tab-contents" id="skills">
                         <ul>
-                            <li><span>Integration Development</span><br>BOOMI, WSO2, API Management(BOOMI & WSO2)</li>
-                            <li><span>Front-End Development</span><br>HTML,CSS,JavaScript,React.js</li>
-                            <li><span>Back-End Development</span><br>Java,Spring Boot,Python,PHP,Node.js,MySQL</li>
+                            <li><span>Integration &amp; Managed Services</span><br>Boomi (iPaaS, API Management, Flow), Managed Services Operations</li>
+                            <li><span>Currently Learning</span><br>WSO2 APIM, WSO2 IAM, Kubernetes, Elastic Stack, AWS</li>
+                            <li><span>Front-End Development</span><br>HTML, CSS, JavaScript, React.js</li>
+                            <li><span>Back-End Development</span><br>Java, Spring Boot, Python, PHP, Node.js, MySQL</li>
                             <li><span>UI/UX</span><br>Figma, Canva</li>
                         </ul>
                     </div>
@@ -645,6 +651,160 @@
                 })
                 .catch(error => console.error('Error!', error.message))
         })
+    </script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- Hero 3D Scene + Typewriter + Tilt -->
+    <script>
+    /* --- THREE.JS HERO SCENE --- */
+    (function () {
+        if (typeof THREE === 'undefined') return;
+        var canvas = document.getElementById('hero-3d');
+        if (!canvas) return;
+
+        var w = canvas.offsetWidth, h = canvas.offsetHeight;
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
+        camera.position.z = 5.5;
+
+        var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+        renderer.setSize(w, h);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        /* ── Outer wireframe icosahedron ── */
+        var icoGeo = new THREE.IcosahedronGeometry(1.4, 1);
+        var icoMat = new THREE.MeshBasicMaterial({ color: 0xa040c0, wireframe: true, transparent: true, opacity: 0.75 });
+        var ico = new THREE.Mesh(icoGeo, icoMat);
+        scene.add(ico);
+
+        /* ── Inner dark core ── */
+        var coreGeo = new THREE.IcosahedronGeometry(1.0, 0);
+        var coreMat = new THREE.MeshBasicMaterial({ color: 0x1a001a, transparent: true, opacity: 0.55 });
+        var core = new THREE.Mesh(coreGeo, coreMat);
+        scene.add(core);
+
+        /* ── Three orbiting rings ── */
+        function makeRing(r, tube, tiltX, tiltZ, color, opacity) {
+            var geo = new THREE.TorusGeometry(r, tube, 8, 120);
+            var mat = new THREE.MeshBasicMaterial({ color: color, transparent: true, opacity: opacity });
+            var mesh = new THREE.Mesh(geo, mat);
+            mesh.rotation.x = tiltX;
+            mesh.rotation.z = tiltZ;
+            return mesh;
+        }
+        var rGroup = new THREE.Group();
+        var r1 = makeRing(2.3, 0.018, Math.PI * 0.25, 0,            0xe3b2ff, 0.70);
+        var r2 = makeRing(1.9, 0.014, Math.PI * 0.55, Math.PI*0.2,  0xb060e0, 0.60);
+        var r3 = makeRing(2.7, 0.010, Math.PI * 0.08, Math.PI*0.5,  0x702670, 0.50);
+        rGroup.add(r1, r2, r3);
+        scene.add(rGroup);
+
+        /* ── Particle constellation (sphere shell) ── */
+        var pCount = 300;
+        var pPos = new Float32Array(pCount * 3);
+        for (var i = 0; i < pCount; i++) {
+            var theta = Math.random() * Math.PI * 2;
+            var phi   = Math.acos(2 * Math.random() - 1);
+            var rad   = 2.9 + Math.random() * 1.5;
+            pPos[i*3]   = rad * Math.sin(phi) * Math.cos(theta);
+            pPos[i*3+1] = rad * Math.sin(phi) * Math.sin(theta);
+            pPos[i*3+2] = rad * Math.cos(phi);
+        }
+        var pGeo = new THREE.BufferGeometry();
+        pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+        var pMat = new THREE.PointsMaterial({ color: 0xecc8ff, size: 0.055, transparent: true, opacity: 0.85 });
+        var pts  = new THREE.Points(pGeo, pMat);
+        scene.add(pts);
+
+        /* ── Mouse parallax ── */
+        var mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', function (e) {
+            mx = (e.clientX / window.innerWidth  - 0.5) * 0.7;
+            my = (e.clientY / window.innerHeight - 0.5) * 0.7;
+        });
+
+        window.addEventListener('resize', function () {
+            w = canvas.offsetWidth; h = canvas.offsetHeight;
+            camera.aspect = w / h;
+            camera.updateProjectionMatrix();
+            renderer.setSize(w, h);
+        });
+
+        /* ── Render loop ── */
+        var t = 0;
+        function tick() {
+            requestAnimationFrame(tick);
+            t += 0.008;
+
+            var pulse = 1 + Math.sin(t * 1.6) * 0.04;
+            ico.scale.setScalar(pulse);
+
+            ico.rotation.x  =  t * 0.35;
+            ico.rotation.y  =  t * 0.55;
+            core.rotation.x = -t * 0.20;
+            core.rotation.y =  t * 0.30;
+
+            rGroup.rotation.y =  t * 0.18;
+            r1.rotation.z     =  t * 0.22;
+            r2.rotation.z     = -t * 0.16;
+            r3.rotation.z     =  t * 0.09;
+
+            pts.rotation.y =  t * 0.04;
+            pts.rotation.x =  t * 0.02;
+
+            rx += (my - rx) * 0.05;
+            ry += (mx - ry) * 0.05;
+            scene.rotation.x = -rx;
+            scene.rotation.y =  ry;
+
+            renderer.render(scene, camera);
+        }
+        tick();
+    })();
+
+    /* --- TYPEWRITER EFFECT --- */
+    (function () {
+        var el = document.getElementById('typed-role');
+        if (!el) return;
+        var roles = ['Managed Services Engineer', 'Boomi Integration Consultant'];
+        var ri = 0, ci = 0, deleting = false;
+
+        function tick() {
+            var word = roles[ri];
+            el.textContent = deleting ? word.slice(0, ci--) : word.slice(0, ci++);
+            if (!deleting && ci > word.length) { deleting = true; setTimeout(tick, 2000); return; }
+            if (deleting && ci < 0) { deleting = false; ri = (ri + 1) % roles.length; setTimeout(tick, 400); return; }
+            setTimeout(tick, deleting ? 45 : 95);
+        }
+        tick();
+    })();
+
+    /* --- 3D TILT ON PROJECT CARDS --- */
+    (function () {
+        document.querySelectorAll('.work').forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+                var r = card.getBoundingClientRect();
+                var rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -7;
+                var ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 7;
+                card.style.transform = 'perspective(900px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateZ(8px)';
+                card.style.boxShadow = (-ry * 2) + 'px ' + (rx * 2) + 'px 40px rgba(112,38,112,0.35), 0 20px 50px rgba(0,0,0,0.55)';
+            });
+            card.addEventListener('mouseleave', function () { card.style.transform = ''; card.style.boxShadow = ''; });
+        });
+
+        /* 3D tilt on service cards */
+        document.querySelectorAll('.services-list div').forEach(function (card) {
+            card.addEventListener('mousemove', function (e) {
+                var r = card.getBoundingClientRect();
+                var rx = ((e.clientY - r.top - r.height / 2) / (r.height / 2)) * -5;
+                var ry = ((e.clientX - r.left - r.width / 2) / (r.width / 2)) * 5;
+                card.style.transform = 'perspective(600px) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg) translateY(-10px)';
+            });
+            card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+        });
+    })();
     </script>
 
     <!--=============== SCROLLREVEAL ===============-->

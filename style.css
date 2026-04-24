@@ -953,3 +953,158 @@ nav .fas {
         font-size: 16px;
     }
 }
+
+/* =============================================
+   MODERN 3D ENHANCEMENTS
+   ============================================= */
+
+/* Hero Three.js canvas — left side only, transparent bg shows photo through */
+#header {
+    position: relative;
+}
+
+#header .container {
+    position: relative;
+    z-index: 1;
+}
+
+#hero-3d {
+    position: absolute;
+    top: 0; left: 0;
+    width: 50%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #hero-3d { display: none; }
+}
+
+/* Glassmorphism navigation */
+nav {
+    background: rgba(8, 8, 8, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(112, 38, 112, 0.2);
+    border-radius: 0 0 20px 20px;
+    padding: 10px 0;
+}
+
+/* Gradient section headings */
+.sub-title {
+    background: linear-gradient(135deg, #ffffff 20%, #e3b2ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.sub-title::after {
+    content: '';
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #702670, #e3b2ff);
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+/* Hero name glow */
+.header-text h1 span {
+    color: #e3b2ff;
+    text-shadow: 0 0 40px rgba(200, 100, 255, 0.6),
+                 0 0 80px rgba(112, 38, 112, 0.35);
+}
+
+/* Typing cursor blink */
+.typed-cursor {
+    display: inline-block;
+    width: 3px;
+    height: 0.85em;
+    background: #e3b2ff;
+    margin-left: 3px;
+    vertical-align: middle;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(200, 100, 255, 0.7);
+    animation: blink 0.7s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Floating profile image */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+.about-col-1 img {
+    animation: float 6s ease-in-out infinite;
+    box-shadow: 0 30px 60px rgba(112, 38, 112, 0.3);
+}
+
+/* Glassmorphism service cards */
+.services-list div {
+    background: rgba(28, 28, 28, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(112, 38, 112, 0.25);
+}
+
+.services-list div:hover {
+    background: rgba(112, 38, 112, 0.85);
+    border-color: rgba(180, 80, 200, 0.5);
+    box-shadow: 0 20px 50px rgba(112, 38, 112, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* 3D tilt support on project cards */
+.work {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+/* Enhanced article category pill */
+.article-category {
+    background: linear-gradient(135deg,
+        rgba(112, 38, 112, 0.3),
+        rgba(180, 80, 255, 0.15));
+    border: 1px solid rgba(200, 100, 255, 0.3);
+}
+
+/* Gradient glow buttons */
+.btn {
+    background: linear-gradient(135deg, #702670, #9a3a9a);
+    border-color: transparent;
+    box-shadow: 0 4px 20px rgba(112, 38, 112, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(112, 38, 112, 0.65);
+}
+
+/* Contact icon glow */
+.contact-left p i {
+    filter: drop-shadow(0 0 6px rgba(200, 100, 255, 0.5));
+}
+
+/* Social icon glow on hover */
+.social-icons a:hover {
+    color: #e3b2ff;
+    filter: drop-shadow(0 0 8px rgba(200, 100, 255, 0.5));
+}
+
+/* Cert open header gradient */
+.cert-group.open .cert-group-header {
+    background: linear-gradient(135deg, #702670, #8b3080);
+    box-shadow: 0 4px 20px rgba(112, 38, 112, 0.4);
+}
+
+/* Copyright modernisation */
+.copyright {
+    background: rgba(18, 18, 18, 0.95);
+    border-top: 1px solid rgba(112, 38, 112, 0.2);
+}
