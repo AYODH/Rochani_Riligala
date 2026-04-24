@@ -1108,3 +1108,154 @@ nav {
     background: rgba(18, 18, 18, 0.95);
     border-top: 1px solid rgba(112, 38, 112, 0.2);
 }
+
+/* =============================================
+   PAGE UI MODERNIZATION
+   ============================================= */
+
+/* Section ambient glow backgrounds */
+#about          { background: radial-gradient(ellipse 65% 45% at 100%  5%, rgba(112,38,112,0.10) 0%, transparent 100%); }
+#services       { background: radial-gradient(ellipse 55% 40% at  0%  60%, rgba(112,38,112,0.08) 0%, transparent 100%); }
+#certifications { background: radial-gradient(ellipse 65% 50% at 100% 50%, rgba(112,38,112,0.07) 0%, transparent 100%); }
+#articles       { background: radial-gradient(ellipse 55% 40% at  0%  40%, rgba(112,38,112,0.08) 0%, transparent 100%); }
+#portfolio      { background: radial-gradient(ellipse 65% 50% at 100%  0%, rgba(112,38,112,0.07) 0%, transparent 100%); }
+#gallery        { background: radial-gradient(ellipse 55% 35% at 50% 100%, rgba(112,38,112,0.06) 0%, transparent 100%); }
+#contact        { background: radial-gradient(ellipse 65% 55% at  0% 100%, rgba(112,38,112,0.10) 0%, transparent 100%); }
+
+/* Profile image — purple glow border */
+.about-col-1 img {
+    border: 2px solid rgba(112, 38, 112, 0.35);
+}
+
+/* Tab contents — timeline style */
+.tab-contents ul {
+    border-left: 2px solid rgba(112, 38, 112, 0.28);
+    margin-left: 8px;
+    padding-left: 0;
+}
+
+.tab-contents ul li {
+    position: relative;
+    padding-left: 24px;
+    padding-bottom: 20px;
+    margin: 0;
+}
+
+.tab-contents ul li:last-child { padding-bottom: 4px; }
+
+.tab-contents ul li::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    background: #702670;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(180, 60, 255, 0.7), 0 0 20px rgba(112, 38, 112, 0.4);
+}
+
+/* Expertise cards — numbered watermark + icon badge */
+.services-list { counter-reset: svc; }
+
+.services-list div {
+    counter-increment: svc;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-list div::after {
+    content: counter(svc, decimal-leading-zero);
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.8rem;
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #e3b2ff;
+    opacity: 0.06;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.services-list div i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    font-size: 26px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(112,38,112,0.35), rgba(200,80,255,0.15));
+    border: 1px solid rgba(200, 80, 255, 0.28);
+    color: #e3b2ff;
+    margin-bottom: 24px;
+}
+
+/* Project cards — consistent minimum height */
+.work { min-height: 320px; }
+
+/* Contact section — glassmorphism card panels */
+.contact-left,
+.contact-right {
+    background: rgba(20, 20, 20, 0.70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(112, 38, 112, 0.22);
+    border-radius: 20px;
+    padding: 2.2rem 2rem;
+}
+
+/* Form inputs — dark glassmorphism with focus ring */
+form input,
+form textarea {
+    background: rgba(12, 12, 12, 0.85);
+    border: 1px solid rgba(112, 38, 112, 0.30);
+    border-radius: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+}
+
+form input:focus,
+form textarea:focus {
+    outline: none;
+    background: rgba(18, 18, 18, 0.95);
+    border-color: rgba(180, 60, 255, 0.55);
+    box-shadow: 0 0 0 3px rgba(112, 38, 112, 0.18);
+}
+
+/* Social icons — circular bordered buttons */
+.social-icons a {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(28, 28, 28, 0.9);
+    border: 1px solid rgba(112, 38, 112, 0.30);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 8px;
+    color: #ababab;
+    transition: background 0.3s, border-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+    vertical-align: middle;
+}
+
+.social-icons a:hover {
+    background: linear-gradient(135deg, #702670, #9a3a9a);
+    border-color: transparent;
+    color: #fff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(112, 38, 112, 0.5);
+    filter: none;
+}
+
+/* Open cert group glow */
+.cert-group.open {
+    box-shadow: 0 4px 30px rgba(112, 38, 112, 0.15);
+}
+
+/* Mobile — tighten contact cards */
+@media only screen and (max-width: 600px) {
+    .contact-left,
+    .contact-right { padding: 1.5rem 1.2rem; }
+    .services-list div::after { font-size: 2.5rem; }
+}
