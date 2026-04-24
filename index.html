@@ -703,7 +703,11 @@
         var canvas = document.getElementById('hero-3d');
         if (!canvas) return;
 
-        var w = canvas.offsetWidth, h = canvas.offsetHeight;
+        function getSize() {
+            return { w: canvas.offsetWidth || window.innerWidth, h: canvas.offsetHeight || window.innerHeight };
+        }
+        var sz = getSize();
+        var w = sz.w, h = sz.h;
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(55, w / h, 0.1, 100);
         camera.position.z = 5.5;
@@ -757,15 +761,22 @@
         var pts  = new THREE.Points(pGeo, pMat);
         scene.add(pts);
 
-        /* ── Mouse parallax ── */
+        /* ── Mouse / touch parallax ── */
         var mx = 0, my = 0, rx = 0, ry = 0;
         document.addEventListener('mousemove', function (e) {
             mx = (e.clientX / window.innerWidth  - 0.5) * 0.7;
             my = (e.clientY / window.innerHeight - 0.5) * 0.7;
         });
+        document.addEventListener('touchmove', function (e) {
+            if (e.touches.length > 0) {
+                mx = (e.touches[0].clientX / window.innerWidth  - 0.5) * 0.5;
+                my = (e.touches[0].clientY / window.innerHeight - 0.5) * 0.5;
+            }
+        }, { passive: true });
 
         window.addEventListener('resize', function () {
-            w = canvas.offsetWidth; h = canvas.offsetHeight;
+            var s = getSize();
+            w = s.w; h = s.h;
             camera.aspect = w / h;
             camera.updateProjectionMatrix();
             renderer.setSize(w, h);
