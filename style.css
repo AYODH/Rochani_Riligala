@@ -1163,6 +1163,7 @@ nav {
 #certifications { background: radial-gradient(ellipse 65% 50% at 100% 50%, rgba(112,38,112,0.07) 0%, transparent 100%); }
 #articles       { background: radial-gradient(ellipse 55% 40% at  0%  40%, rgba(112,38,112,0.08) 0%, transparent 100%); }
 #portfolio      { background: radial-gradient(ellipse 65% 50% at 100%  0%, rgba(112,38,112,0.07) 0%, transparent 100%); }
+#events         { padding: 50px 0; background: radial-gradient(ellipse 55% 40% at  0%  50%, rgba(112,38,112,0.07) 0%, transparent 100%); }
 #gallery        { background: radial-gradient(ellipse 55% 35% at 50% 100%, rgba(112,38,112,0.06) 0%, transparent 100%); }
 #contact        { background: radial-gradient(ellipse 65% 55% at  0% 100%, rgba(112,38,112,0.10) 0%, transparent 100%); }
 
