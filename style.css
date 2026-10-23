@@ -838,15 +838,15 @@ nav ul li a:hover::after {
     filter: brightness(0.4);
 }
 
-/* Logo-style project image (e.g. SpeakMe) — show in full instead of cropping */
-.work .work-logo {
+/* Logos/screenshots (e.g. SpeakMe, WSO2 IS Token Audit Logger) — show in full instead of cropping */
+.work .work-image-fit {
     object-fit: contain;
     padding: 2rem;
     background: #111;
     filter: none;
 }
 
-.work:hover .work-logo {
+.work:hover .work-image-fit {
     filter: none;
 }
 
