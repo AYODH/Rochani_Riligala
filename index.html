@@ -868,7 +868,6 @@
                     <h1 class="sub-title">Contact Me</h1>
                     <p class="contact-intro">Have a project, role or question in mind? I'd love to hear from
                         you.</p>
-                    <span class="contact-status">Open to opportunities</span>
 
                     <div class="contact-methods">
                         <div class="contact-method">
@@ -907,10 +906,12 @@
                 </div>
                 <div class="contact-right">
                     <p class="contact-form-intro">Send me a message</p>
-                    <form name="submit-to-google-sheet">
+                    <form name="contact-form">
                         <input type="text" name="Name" placeholder="Your Name" required>
                         <input type="email" name="Email" placeholder="Your Email" required>
                         <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                        <input type="hidden" name="_subject" value="Contacting from the Portfolio">
+                        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
                         <button type="submit" class="btn">Send Message</button>
                     </form>
                     <span id="msg"></span>
@@ -957,21 +958,35 @@
         });
     </script>
     <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbw_D3yyyCXT89NPRpshf_zTsjw5UofQM4fhf6Z6DhSUJ6w7Kaa7qODTBxGHhfWMrBkh9g/exec'
-        const form = document.forms['submit-to-google-sheet']
+        const formEndpoint = 'https://formsubmit.co/ajax/rochaniriligala@gmail.com'
+        const form = document.forms['contact-form']
         const msg = document.getElementById("msg")
 
         form.addEventListener('submit', e => {
             e.preventDefault()
-            fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+            fetch(formEndpoint, {
+                method: 'POST',
+                headers: { 'Accept': 'application/json' },
+                body: new FormData(form)
+            })
                 .then(response => {
+                    if (!response.ok) throw new Error('Request failed')
+                    msg.classList.remove('msg-error')
                     msg.innerHTML = "Message Sent Successfully"
                     setTimeout(function () {
                         msg.innerHTML = ""
                     }, 5000)
                     form.reset()
                 })
-                .catch(error => console.error('Error!', error.message))
+                .catch(error => {
+                    console.error('Error!', error.message)
+                    msg.classList.add('msg-error')
+                    msg.innerHTML = "Couldn't send — please try again or email me directly."
+                    setTimeout(function () {
+                        msg.innerHTML = ""
+                        msg.classList.remove('msg-error')
+                    }, 6000)
+                })
         })
     </script>
 
