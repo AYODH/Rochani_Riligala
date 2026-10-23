@@ -838,6 +838,18 @@ nav ul li a:hover::after {
     filter: brightness(0.4);
 }
 
+/* Logo-style project image (e.g. SpeakMe) — show in full instead of cropping */
+.work .work-logo {
+    object-fit: contain;
+    padding: 2rem;
+    background: #111;
+    filter: none;
+}
+
+.work:hover .work-logo {
+    filter: none;
+}
+
 .work:hover .layer a {
     background: #ffffff;
 }
