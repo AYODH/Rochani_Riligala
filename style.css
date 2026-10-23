@@ -897,19 +897,93 @@ nav ul li a:hover::after {
     flex-basis: 60%;
 }
 
-.contact-left p {
+.contact-intro {
+    margin-top: 14px;
+    color: #b3b3b3;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 420px;
+}
+
+.contact-status {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 16px;
+    padding: 6px 16px;
+    border: 1px solid rgba(227, 178, 255, 0.4);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #e3b2ff;
+    background: rgba(112, 38, 112, 0.1);
+}
+
+.contact-status::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: #4ade80;
+    box-shadow: 0 0 8px rgba(74, 222, 128, 0.7);
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
     margin-top: 30px;
 }
 
-.contact-left a {
-    text-decoration: none;
-    color: #fff;
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: 16px;
 }
 
-.contact-left p i {
-    color: #702670;
-    margin-right: 15px;
-    font-size: 25px;
+.contact-method i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(112, 38, 112, 0.35), rgba(200, 80, 255, 0.15));
+    border: 1px solid rgba(200, 80, 255, 0.28);
+    color: #e3b2ff;
+}
+
+.contact-method-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.contact-method a,
+.contact-method span:not(.contact-method-label) {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.contact-form-intro {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+#msg {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #4ade80;
 }
 
 .social-icons {
@@ -1138,8 +1212,7 @@ nav .fas {
    MODERN 3D ENHANCEMENTS
    ============================================= */
 
-/* Hero Three.js canvas — left side only, transparent bg shows photo through */
-/* Hero background glow (CSS only, sits behind the photo) */
+/* Hero background glow (CSS only, sits behind the network graphic) */
 #header {
     background: radial-gradient(ellipse 55% 65% at 78% 45%, rgba(112, 38, 112, 0.30) 0%, transparent 70%),
                 #080808;
@@ -1254,11 +1327,6 @@ nav {
 .btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(112, 38, 112, 0.65);
-}
-
-/* Contact icon glow */
-.contact-left p i {
-    filter: drop-shadow(0 0 6px rgba(200, 100, 255, 0.5));
 }
 
 /* Social icon glow on hover */
