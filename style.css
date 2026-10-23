@@ -866,6 +866,46 @@ nav ul li a:hover::after {
     margin-bottom: 0.4rem;
 }
 
+/* Event cards covering more than one year (e.g. CuttingEdge '24 & '25) */
+.event-moments {
+    width: 100%;
+}
+
+.event-moment {
+    margin: 0.5rem 0;
+}
+
+.event-moment-year {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 0.05rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(26, 1, 41, 0.12);
+    color: #f4d3ff;
+    margin-bottom: 0.2rem;
+}
+
+/* same size/colour as the existing card sub-text (.layer p:nth-of-type(2)) */
+.event-moment p {
+    margin: 0.2rem 0;
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.event-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+}
+
+/* buttons inherit the exact .layer a pill style; just cancel its own
+   margin-top: auto so the wrapper controls bottom alignment instead */
+.event-links a {
+    margin-top: 0;
+}
+
 /*-------------------Gallery Section-------------------*/
 #gallery {
     padding: 50px 0;
