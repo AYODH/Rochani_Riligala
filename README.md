@@ -1,9 +1,9 @@
-# Rochani Riligala — Personal Portfolio
+# Rochani Riligala: Personal Portfolio
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-ayodh.github.io-702670?style=for-the-badge)](https://ayodh.github.io/Rochani_Riligala/)
 [![GitHub Pages](https://img.shields.io/badge/Deployed%20on-GitHub%20Pages-181717?style=for-the-badge&logo=github)](https://ayodh.github.io/Rochani_Riligala/)
 
-A personal portfolio website built with pure HTML, CSS, and JavaScript — no frameworks, no build tools — deployed via GitHub Pages.
+A personal portfolio website built with pure HTML, CSS, and JavaScript, no frameworks, no build tools, deployed via GitHub Pages.
 
 **Live:** https://ayodh.github.io/Rochani_Riligala/
 
@@ -11,16 +11,16 @@ A personal portfolio website built with pure HTML, CSS, and JavaScript — no fr
 
 ## Features
 
-- **3D Hero Scene** — Three.js WebGL icosahedron wireframe with orbital rings and floating particles, with mouse parallax
-- **Typewriter Animation** — Cycles through role titles in the hero section
-- **Glassmorphism UI** — Frosted-glass nav bar, service cards, and contact cards with `backdrop-filter`
-- **3D Card Tilt** — Project and expertise cards respond to mouse movement with perspective tilt
-- **Scroll Reveal Animations** — Sections animate into view on scroll via ScrollReveal.js
-- **Article Carousel** — Swiper.js slider with navigation arrows for featured articles
-- **Gallery Carousel** — Auto-playing image gallery with Swiper.js
-- **Collapsible Certifications** — Grouped by issuer, each group expands with a scrollable list
-- **Responsive Design** — Mobile-friendly layout across all screen sizes
-- **Contact Form** — Powered by Google Sheets (no backend required)
+- **3D Hero Scene** : Three.js WebGL icosahedron wireframe with orbital rings and floating particles, with mouse parallax
+- **Typewriter Animation** : Cycles through role titles in the hero section
+- **Glassmorphism UI** : Frosted-glass nav bar, service cards, and contact cards with `backdrop-filter`
+- **3D Card Tilt** : Project and expertise cards respond to mouse movement with perspective tilt
+- **Scroll Reveal Animations** : Sections animate into view on scroll via ScrollReveal.js
+- **Article Carousel** : Swiper.js slider with navigation arrows for featured articles
+- **Gallery Carousel** : Auto-playing image gallery with Swiper.js
+- **Collapsible Certifications** : Grouped by issuer, each group expands with a scrollable list
+- **Responsive Design** : Mobile-friendly layout across all screen sizes
+- **Contact Form** : Powered by Google Sheets (no backend required)
 
 ---
 
