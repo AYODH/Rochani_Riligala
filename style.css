@@ -138,30 +138,102 @@ nav ul li a:hover::after {
     color: #888;
 }
 
-.hero-photo {
+.hero-network {
     flex-basis: 36%;
     position: relative;
     display: flex;
     justify-content: center;
 }
 
-.hero-photo-glow {
+.hero-network-glow {
     position: absolute;
     inset: -10%;
     background: radial-gradient(circle, rgba(112, 38, 112, 0.45) 0%, transparent 70%);
-    filter: blur(10px);
+    filter: blur(20px);
     z-index: 0;
 }
 
-.hero-photo img {
+.network-scene {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 340px;
-    border-radius: 24px;
-    border: 2px solid rgba(227, 178, 255, 0.5);
-    object-fit: cover;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.5));
+}
+
+.network-edge {
+    stroke: #b584d6;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    fill: none;
+    opacity: 0.6;
+}
+
+.network-edge--soft {
+    stroke-width: 1;
+    opacity: 0.3;
+}
+
+.network-node,
+.network-hub {
+    stroke: rgba(255, 255, 255, 0.25);
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+/* Idle motion — fully skipped when the user prefers reduced motion */
+@media (prefers-reduced-motion: no-preference) {
+    .network-scene {
+        animation: network-tilt 10s ease-in-out infinite;
+    }
+
+    .network-node {
+        animation: network-pulse 4s ease-in-out infinite;
+    }
+
+    .network-node:nth-of-type(2) { animation-delay: 0.5s; }
+    .network-node:nth-of-type(3) { animation-delay: 1s; }
+    .network-node:nth-of-type(4) { animation-delay: 1.5s; }
+    .network-node:nth-of-type(5) { animation-delay: 2s; }
+    .network-node:nth-of-type(6) { animation-delay: 2.5s; }
+    .network-node:nth-of-type(7) { animation-delay: 3s; }
+
+    .network-hub {
+        animation: network-pulse-hub 5s ease-in-out infinite;
+    }
+
+    .network-edge {
+        stroke-dasharray: 6 6;
+        animation: network-flow 3s linear infinite;
+    }
+
+    .network-edge--soft {
+        animation-duration: 4.5s;
+    }
+}
+
+@keyframes network-tilt {
+    0%, 100% { transform: perspective(900px) rotateX(0deg)    rotateY(0deg); }
+    25%      { transform: perspective(900px) rotateX(5deg)    rotateY(-7deg); }
+    50%      { transform: perspective(900px) rotateX(-4deg)   rotateY(6deg); }
+    75%      { transform: perspective(900px) rotateX(4deg)    rotateY(4deg); }
+}
+
+@keyframes network-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.1); }
+}
+
+@keyframes network-pulse-hub {
+    0%, 100% { transform: scale(1); }
+    50%      { transform: scale(1.06); }
+}
+
+@keyframes network-flow {
+    to { stroke-dashoffset: -24; }
 }
 
 /* ---------- Responsive for mobile ---------- */
@@ -196,7 +268,7 @@ nav ul li a:hover::after {
         text-align: center;
     }
 
-    .hero-photo img {
+    .network-scene {
         max-width: 220px;
     }
 }
@@ -1112,7 +1184,7 @@ nav {
 /* Hero fade-in on load — skipped entirely when the user prefers reduced motion */
 @media (prefers-reduced-motion: no-preference) {
     .hero-text,
-    .hero-photo {
+    .hero-network {
         opacity: 0;
         animation: hero-fade-rise 0.6s ease-out forwards;
     }
@@ -1121,7 +1193,7 @@ nav {
         animation-delay: 0.1s;
     }
 
-    .hero-photo {
+    .hero-network {
         animation-delay: 0.2s;
     }
 }

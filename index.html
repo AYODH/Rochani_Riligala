@@ -52,9 +52,46 @@
                     <p class="hero-subline">BEng (Hons) Software Engineering · University of Westminster (IIT) ·
                         Sri Lanka</p>
                 </div>
-                <div class="hero-photo">
-                    <div class="hero-photo-glow"></div>
-                    <img src="images/hero-photo.png" alt="Rochani Riligala">
+                <div class="hero-network">
+                    <div class="hero-network-glow"></div>
+                    <svg class="network-scene" viewBox="0 0 360 390" role="img"
+                        aria-label="Animated illustration of a central integration hub connected to surrounding system nodes">
+                        <defs>
+                            <radialGradient id="hubGradient" cx="35%" cy="35%" r="70%">
+                                <stop offset="0%" stop-color="#f3d9ff" />
+                                <stop offset="55%" stop-color="#b060e0" />
+                                <stop offset="100%" stop-color="#702670" />
+                            </radialGradient>
+                            <radialGradient id="nodeGradient" cx="35%" cy="35%" r="70%">
+                                <stop offset="0%" stop-color="#e3b2ff" />
+                                <stop offset="100%" stop-color="#702670" />
+                            </radialGradient>
+                        </defs>
+
+                        <g class="network-edges">
+                            <line class="network-edge" x1="180" y1="195" x2="180" y2="60" />
+                            <line class="network-edge" x1="180" y1="195" x2="300" y2="110" />
+                            <line class="network-edge" x1="180" y1="195" x2="320" y2="240" />
+                            <line class="network-edge" x1="180" y1="195" x2="230" y2="350" />
+                            <line class="network-edge" x1="180" y1="195" x2="110" y2="345" />
+                            <line class="network-edge" x1="180" y1="195" x2="45" y2="230" />
+                            <line class="network-edge" x1="180" y1="195" x2="60" y2="95" />
+                            <line class="network-edge network-edge--soft" x1="60" y1="95" x2="180" y2="60" />
+                            <line class="network-edge network-edge--soft" x1="300" y1="110" x2="320" y2="240" />
+                            <line class="network-edge network-edge--soft" x1="230" y1="350" x2="110" y2="345" />
+                        </g>
+
+                        <g class="network-nodes">
+                            <circle class="network-node" cx="180" cy="60" r="15" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="300" cy="110" r="13" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="320" cy="240" r="17" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="230" cy="350" r="14" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="110" cy="345" r="12" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="45" cy="230" r="16" fill="url(#nodeGradient)" />
+                            <circle class="network-node" cx="60" cy="95" r="13" fill="url(#nodeGradient)" />
+                            <circle class="network-hub" cx="180" cy="195" r="26" fill="url(#hubGradient)" />
+                        </g>
+                    </svg>
                 </div>
             </div>
         </div>
