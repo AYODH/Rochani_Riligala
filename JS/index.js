@@ -44,6 +44,21 @@ let swiperFeatured = new Swiper('.featured__swiper', {
     }
 })
 
+/*=============== EQUALIZE ARTICLE CARD HEIGHTS ===============*/
+function equalizeArticleCards() {
+    const cards = document.querySelectorAll('.featured__card');
+    if (!cards.length) return;
+    cards.forEach((card) => { card.style.height = 'auto'; });
+    const tallest = Math.max(...Array.from(cards, (card) => card.offsetHeight));
+    cards.forEach((card) => { card.style.height = `${tallest}px`; });
+}
+
+window.addEventListener('load', equalizeArticleCards);
+window.addEventListener('resize', equalizeArticleCards);
+if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(equalizeArticleCards);
+}
+
 /*=============== CERTIFICATES COLLAPSE ===============*/
 document.querySelectorAll('.cert-group-header').forEach((btn) => {
   btn.addEventListener('click', () => {
